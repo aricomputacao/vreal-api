@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 
 @Entity
 @Table(name = "categoria", schema = "cadastro_basico")
@@ -19,6 +22,8 @@ public class Categoria  implements Serializable{
 	@Column(name = "cat_id")
 	private Long id;
 	
+	@NotBlank
+	@Size(min = 3,max = 20)
 	@Column(name = "cat_nome",nullable = false,unique = true)
 	private String nome;
 
