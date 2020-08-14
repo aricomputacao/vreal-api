@@ -9,8 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "pessoa",schema = "cadastro_basico")
@@ -36,6 +39,13 @@ public class Pessoa implements Serializable{
 	@Embedded
 	private Endereco endereco;
 
+
+	@JsonIgnore
+	@Transient
+	public boolean isInativo() {
+		return !this.ativo;
+	}
+	
 	public String getCpf() {
 		return cpf;
 	}
