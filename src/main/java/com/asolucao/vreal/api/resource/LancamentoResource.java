@@ -31,6 +31,7 @@ import com.asolucao.vreal.api.exceptionhandler.VrealExceptionHandler.Erro;
 import com.asolucao.vreal.api.model.Lancamento;
 import com.asolucao.vreal.api.repository.LancamentoRepository;
 import com.asolucao.vreal.api.repository.filter.LancamentoFilter;
+import com.asolucao.vreal.api.repository.projection.ResumoLancamento;
 import com.asolucao.vreal.api.service.LancamentoService;
 import com.asolucao.vreal.api.service.exception.PessoaInexistenteOuInativaException;
 
@@ -66,6 +67,13 @@ public class LancamentoResource {
 	public Page<Lancamento> pesquisar(LancamentoFilter lancamentoFilter,Pageable pageable){
 		return lancamentoRepository.filtrar(lancamentoFilter,pageable);
 	}
+	
+	@GetMapping(params = "resumo")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
+	public Page<ResumoLancamento> resumir(LancamentoFilter lancamentoFilter,Pageable pageable){
+		return lancamentoRepository.resumir(lancamentoFilter,pageable);
+	}
+	
 	
 	@GetMapping("/{id}")
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
